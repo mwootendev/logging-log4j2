@@ -1,0 +1,68 @@
+{
+  "timestampSeconds": {
+    "$resolver": "timestamp",
+    "epoch": {
+      "unit": "secs",
+      "rounded": true
+    }
+  },
+  "timestampNanos": {
+    "$resolver": "timestamp",
+    "epoch": {
+      "unit": "secs.nanos"
+    }
+  },
+  "severity": {
+    "$resolver": "pattern",
+    "pattern": "%level{WARN=WARNING, TRACE=DEBUG, FATAL=EMERGENCY}",
+    "stackTraceEnabled": false
+  },
+  "message": {
+    "$resolver": "pattern",
+    "pattern": "%m",
+    "stackTraceEnabled": true
+  },
+  "logging.googleapis.com/labels": {
+    "$resolver": "mdc",
+    "stringified": true
+  },
+  "logging.googleapis.com/sourceLocation": {
+    "file": {
+      "$resolver": "source",
+      "field": "fileName"
+    },
+    "line": {
+      "$resolver": "source",
+      "field": "lineNumber"
+    },
+    "function": {
+      "$resolver": "pattern",
+      "pattern": "%replace{%C.%M}{^\\?\\.$}{}",
+      "stackTraceEnabled": false
+    }
+  },
+  "logging.googleapis.com/trace": {
+    "$resolver": "mdc",
+    "key": "trace_id"
+  },
+  "logging.googleapis.com/spanId": {
+    "$resolver": "mdc",
+    "key": "span_id"
+  },
+  "logging.googleapis.com/trace_sampled": true,
+  "exception": {
+    "$resolver": "exception",
+    "field": "stackTrace",
+    "stackTrace": {
+      "stringified": true
+    }
+  },
+  "thread": {
+    "$resolver": "thread",
+    "field": "name"
+  },
+  "logger": {
+    "$resolver": "logger",
+    "field": "name"
+  }
+}
